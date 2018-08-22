@@ -18,7 +18,8 @@ import org.litespring.beans.factory.config.ConfigurableBeanFactory;
 import org.litespring.util.ClassUtils;
 
 
-public class DefaultBeanFactory implements ConfigurableBeanFactory,BeanDefinitionRegistry {
+public class DefaultBeanFactory extends DefaultSingletonBeanRegistry
+		implements ConfigurableBeanFactory,BeanDefinitionRegistry {
 	
 	public static final String ID_ATTRIBUTE = "id";
 	public static final String CLASS_ATTRIBUTE = "class";
@@ -34,11 +35,26 @@ public class DefaultBeanFactory implements ConfigurableBeanFactory,BeanDefinitio
 	}
 
 	public Object getBean(String beanID) {
-		BeanDefinition bd = this.beanDefinitionMap.get(beanID);
+		BeanDefinition bd = getBeanDefinition(beanID);
+		
 		if(bd == null){
 			throw new BeanCreationException("Bean Definition dose not exist");
 		}
-		ClassLoader cl = ClassUtils.getDefaultClassLoader();
+		
+		if(bd.isSingleton()){
+			Object bean = this.getSingleton(beanID);
+			if(bean == null){
+				bean = creatBean(bd);
+				this.registrySingleton(beanID, bean);
+			}
+			return bean;
+		}	
+		return creatBean(bd);
+	}
+	
+	private Object creatBean(BeanDefinition bd){
+		
+		ClassLoader cl = this.getBeanClassLoader();
 		String beanClassName = bd.getBeanClassName();
 		try {
 			Class<?> clazz;
@@ -47,8 +63,6 @@ public class DefaultBeanFactory implements ConfigurableBeanFactory,BeanDefinitio
 		} catch (Exception e) {
 			throw new BeanCreationException("create bean for "+beanClassName+" fail");
 		} 
-		
-		
 	}
 
 	public void registryBeanDefinition(String baenId, BeanDefinition bd) {
