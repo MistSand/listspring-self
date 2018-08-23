@@ -17,7 +17,6 @@ public class FileSystemResource implements Resource {
 		Assert.notNull(path, "path not be null");
 		this.path = path;
 		this.file = new File(path);
-		
 	}
 
 	public InputStream getInputStream() throws IOException {
