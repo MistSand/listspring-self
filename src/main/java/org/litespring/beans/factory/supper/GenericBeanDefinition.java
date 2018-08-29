@@ -1,6 +1,9 @@
 package org.litespring.beans.factory.supper;
 
+import java.util.List;
+
 import org.litespring.beans.BeanDefinition;
+import org.litespring.beans.PropertyValue;
 
 public class GenericBeanDefinition implements BeanDefinition{
 
@@ -51,6 +54,11 @@ public class GenericBeanDefinition implements BeanDefinition{
 
 	public String getScope() {
 		return this.scope;
+	}
+
+	public List<PropertyValue> getPropertyValues() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
