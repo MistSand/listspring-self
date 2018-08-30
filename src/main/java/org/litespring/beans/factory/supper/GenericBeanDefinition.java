@@ -1,5 +1,6 @@
 package org.litespring.beans.factory.supper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.litespring.beans.BeanDefinition;
@@ -14,6 +15,8 @@ public class GenericBeanDefinition implements BeanDefinition{
 	private Boolean prototype = false;
 	
 	private String scope = SCOPE_DEFAULT;
+	
+	private List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
 	
 	
 	public GenericBeanDefinition(String id, String beanClassName) {
@@ -57,8 +60,7 @@ public class GenericBeanDefinition implements BeanDefinition{
 	}
 
 	public List<PropertyValue> getPropertyValues() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.propertyValues;
 	}
 	
 	
