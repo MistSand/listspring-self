@@ -14,6 +14,16 @@ public class PropertyValue {
 	public PropertyValue() {
 		super();
 	}
+	
+	
+
+	public PropertyValue(String name, Object value) {
+		super();
+		this.name = name;
+		this.value = value;
+	}
+
+
 
 	public PropertyValue(String name, Object value, boolean converted, Object convertedValue) {
 		super();
