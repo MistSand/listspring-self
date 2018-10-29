@@ -101,7 +101,7 @@ public class XmlBeanDefinitionReader {
 
 	private Object parsePropertyVlaue(Element ele, BeanDefinition bd, String name) {
 		
-		Boolean 
+		 
 		
 		return null;
 	}
